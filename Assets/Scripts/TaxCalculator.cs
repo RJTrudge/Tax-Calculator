@@ -37,28 +37,21 @@ public class TaxCalculator : MonoBehaviour
     {
         // Get from user. E.g. input box
         // Validate the input (ensure it is a positive, valid number)
-        double grossYearlySalary = 1000;
+        double grossYearlySalary = double.TryParse(Input.text);
         return grossYearlySalary;
     }
 
     private string GetSalaryPayPeriod()
     {
         // Get from user. E.g. combobox or radio buttons
-        string salaryPayPeriod = "weekly";
+        string salaryPayPeriod = TimePeriod.text(ToString);
         return salaryPayPeriod;
     }
 
     private double CalculateGrossYearlySalary(double grossSalaryInput, string salaryPayPeriod)
     {
         // This is a stub, replace with the real calculation and return the result
-        if(salaryPayPeriod == "weekly")
-        {
-            double grossYearlySalary = grossSalaryInput * 52;
-        }
-        else if(salaryPayPeriod == "fortnightly")
-        {
-            double grossYearlySalary = grossSalaryInput * 26;
-        }
+        
 
 
         double grossYearlySalary = 50000;
