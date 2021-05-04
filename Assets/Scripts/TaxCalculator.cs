@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using SpeechLib;
+using UnityEngine.UI;
 
 public class TaxCalculator : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class TaxCalculator : MonoBehaviour
 
     // Variables
     bool textToSpeechEnabled = true;
-
+    public InputField grossSalaryInputField;
+    public Dropdown timePeriod;
     private void Start()
     {
         Speak("Welcome to the A.T.O. Tax Calculator");
@@ -37,25 +39,59 @@ public class TaxCalculator : MonoBehaviour
     {
         // Get from user. E.g. input box
         // Validate the input (ensure it is a positive, valid number)
-        double grossYearlySalary = double.TryParse(Input.text);
+        double grossYearlySalary = double.Parse(grossSalaryInputField.text);
         return grossYearlySalary;
     }
 
     private string GetSalaryPayPeriod()
     {
         // Get from user. E.g. combobox or radio buttons
-        string salaryPayPeriod = TimePeriod.text(ToString);
-        return salaryPayPeriod;
+        if (timePeriod.value == 0)
+        {
+            string salaryPayPeriod = "Weekly";
+            return salaryPayPeriod;
+        }
+        else if (timePeriod.value == 1)
+        {
+            string salaryPayPeriod = "Fortnightly";
+            return salaryPayPeriod;
+        }
+        else if (timePeriod.value == 2)
+        {
+            string salaryPayPeriod = "Monthly";
+            return salaryPayPeriod;
+        }
+        else (timePeriod.value == 3);
+        {
+            string salaryPayPeriod = "Yearly";
+            return salaryPayPeriod;
+        }
+        
     }
 
     private double CalculateGrossYearlySalary(double grossSalaryInput, string salaryPayPeriod)
     {
         // This is a stub, replace with the real calculation and return the result
-        
-
-
-        double grossYearlySalary = 50000;
-        return grossYearlySalary;
+        if (salaryPayPeriod == "Weekly")
+        {
+            double grossYearlySalary = grossSalaryInput * 52;
+            return grossYearlySalary;
+        }
+        else if (salaryPayPeriod == "Fortnightly")
+        {
+            double grossYearlySalary = grossSalaryInput * 26;
+            return grossYearlySalary;
+        }
+        else if (salaryPayPeriod == "Monthly")
+        {
+            double grossYearlySalary = grossSalaryInput * 12;
+            return grossYearlySalary;
+        }
+        else
+        {
+            double grossYearlySalary = grossSalaryInput;
+            return grossYearlySalary;
+        }
     }
 
     private double CalculateNetIncome(double grossYearlySalary, ref double medicareLevyPaid, ref double incomeTaxPaid)

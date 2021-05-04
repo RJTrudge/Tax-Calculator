@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 14282757}
   - component: {fileID: 14282756}
   m_Layer: 5
-  m_Name: Input
+  m_Name: InputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1221,7 +1221,7 @@ GameObject:
   - component: {fileID: 1138897591}
   - component: {fileID: 1138897590}
   m_Layer: 5
-  m_Name: Weekly
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1415,7 +1415,7 @@ GameObject:
   - component: {fileID: 1257962160}
   - component: {fileID: 1257962159}
   m_Layer: 5
-  m_Name: TimePeriod
+  m_Name: Dropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
