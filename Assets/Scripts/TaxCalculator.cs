@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using SpeechLib;
 using UnityEngine.UI;
+using SpeechLib;
 
 public class TaxCalculator : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class TaxCalculator : MonoBehaviour
     bool textToSpeechEnabled = true;
     public InputField grossSalaryInputField;
     public Dropdown timePeriod;
+    public Text output;
     private void Start()
     {
         Speak("Welcome to the A.T.O. Tax Calculator");
@@ -33,14 +34,15 @@ public class TaxCalculator : MonoBehaviour
 
         // Output
         OutputResults(medicareLevyPaid, incomeTaxPaid, netIncome);
+
+        
     }
 
     private double GetGrossSalary()
     {
         // Get from user. E.g. input box
         // Validate the input (ensure it is a positive, valid number)
-        double grossYearlySalary = double.Parse(grossSalaryInputField.text);
-        return grossYearlySalary;
+        return double.Parse(grossSalaryInputField.text);
     }
 
     private string GetSalaryPayPeriod()
@@ -48,23 +50,19 @@ public class TaxCalculator : MonoBehaviour
         // Get from user. E.g. combobox or radio buttons
         if (timePeriod.value == 0)
         {
-            string salaryPayPeriod = "Weekly";
-            return salaryPayPeriod;
+            return "Weekly";
         }
         else if (timePeriod.value == 1)
         {
-            string salaryPayPeriod = "Fortnightly";
-            return salaryPayPeriod;
+            return "Fortnightly";
         }
         else if (timePeriod.value == 2)
         {
-            string salaryPayPeriod = "Monthly";
-            return salaryPayPeriod;
+            return "Monthly";
         }
-        else (timePeriod.value == 3);
+        else
         {
-            string salaryPayPeriod = "Yearly";
-            return salaryPayPeriod;
+            return "Yearly";
         }
         
     }
@@ -74,23 +72,19 @@ public class TaxCalculator : MonoBehaviour
         // This is a stub, replace with the real calculation and return the result
         if (salaryPayPeriod == "Weekly")
         {
-            double grossYearlySalary = grossSalaryInput * 52;
-            return grossYearlySalary;
+            return grossSalaryInput * 52;
         }
         else if (salaryPayPeriod == "Fortnightly")
         {
-            double grossYearlySalary = grossSalaryInput * 26;
-            return grossYearlySalary;
+            return grossSalaryInput * 26;
         }
         else if (salaryPayPeriod == "Monthly")
         {
-            double grossYearlySalary = grossSalaryInput * 12;
-            return grossYearlySalary;
+            return grossSalaryInput * 12;
         }
         else
         {
-            double grossYearlySalary = grossSalaryInput;
-            return grossYearlySalary;
+            return grossSalaryInput;
         }
     }
 
@@ -99,22 +93,40 @@ public class TaxCalculator : MonoBehaviour
         // This is a stub, replace with the real calculation and return the result
         medicareLevyPaid = CalculateMedicareLevy(grossYearlySalary);
         incomeTaxPaid = CalculateIncomeTax(grossYearlySalary);
-        double netIncome = 33000;        
-        return netIncome;
+
+        return grossYearlySalary - (medicareLevyPaid + incomeTaxPaid);
     }
 
     private double CalculateMedicareLevy(double grossYearlySalary)
     {
-        // This is a stub, replace with the real calculation and return the result
-        double medicareLevyPaid = 2000;        
-        return medicareLevyPaid;
+        // This is a stub, replace with the real calculation and return the result      
+        return MEDICARE_LEVY * grossYearlySalary;
     }
 
     private double CalculateIncomeTax(double grossYearlySalary)
     {
         // This is a stub, replace with the real calculation and return the result
-        double incomeTaxPaid = 15000;
-        return incomeTaxPaid;
+        if(grossYearlySalary <= 18000)
+        {
+            return 0;
+        }
+        else if(grossYearlySalary <= 37000)
+        {
+            return 0.19 * (grossYearlySalary - 18200);
+        }
+        else if(grossYearlySalary <= 87000)
+        {
+            return 0.325 * (grossYearlySalary - 37000) + 3572;
+        }
+        else if(grossYearlySalary <= 180000)
+        {
+            return 0.37 * (grossYearlySalary - 87000) + 19822;
+        }
+        else
+        {
+            return 0.45 * (grossYearlySalary - 180000) + 54232;
+        }
+        
     }
 
     private void OutputResults(double medicareLevyPaid, double incomeTaxPaid, double netIncome)
@@ -123,6 +135,7 @@ public class TaxCalculator : MonoBehaviour
         // "Medicare levy paid: $" + medicareLevyPaid.ToString("F2");
         // "Income tax paid: $" + incomeTaxPaid.ToString("F2");
         // "Net income: $" + netIncome.ToString("F2");
+        output.text = $"Medicare levy paid: ${medicareLevyPaid}\nIncome tax paid: ${incomeTaxPaid}\nNet income: ${netIncome}";
     }
 
     // Text to Speech
