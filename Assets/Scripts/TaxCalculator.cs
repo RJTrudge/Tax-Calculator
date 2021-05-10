@@ -105,19 +105,23 @@ public class TaxCalculator : MonoBehaviour
     private double CalculateIncomeTax(double grossYearlySalary)
     {
         // This is a stub, replace with the real calculation and return the result
-        if(grossYearlySalary <= 18000)
+        if(grossYearlySalary <= 0)
+        {
+            
+        }
+        else if(grossYearlySalary > 1 && grossYearlySalary <= 18000)
         {
             return 0;
         }
-        else if(grossYearlySalary <= 37000)
+        else if(grossYearlySalary >= 18001 && grossYearlySalary <= 37000)
         {
             return 0.19 * (grossYearlySalary - 18200);
         }
-        else if(grossYearlySalary <= 87000)
+        else if(grossYearlySalary >= 37001 && grossYearlySalary <= 87000)
         {
             return 0.325 * (grossYearlySalary - 37000) + 3572;
         }
-        else if(grossYearlySalary <= 180000)
+        else if(grossYearlySalary >= 87001 && grossYearlySalary <= 180000)
         {
             return 0.37 * (grossYearlySalary - 87000) + 19822;
         }
